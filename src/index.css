@@ -1,13 +1,71 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+main {
+  position: relative;
+  min-height: 100vh;
+  z-index: 0;
+}
+main:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-image: url("image/marcus-aurelius.webp");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+.toast-position {
+  top: 8rem !important;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.twitter {
+  color: #61dafb;
+  font-size: 1.2em;
+}
+
+.github {
+  color: #333;
+  font-size: 1.2em;
+}
+
+.footer a:hover {
+  color: orangered;
+}
+
+.footer,
+.footer a {
+  font-size: 1em;
+}
+
+.footer p {
+  font-size: 1.1em;
+}
+
+.footer span {
+  display: inline-block;
+  margin-left: 50px;
 }
