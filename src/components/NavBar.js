@@ -37,7 +37,7 @@ const NavBar = () => {
       if (!lang) {
         return JSON.parse(localStorage.getItem("userData")) + "'s Library";
       } else {
-        return "La Biblio de " + JSON.parse(localStorage.getItem("userData"));
+        return "Biblio de " + JSON.parse(localStorage.getItem("userData"));
       }
     }
   };
