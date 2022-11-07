@@ -107,6 +107,7 @@ const AddBooks = ({ libraryData, addBook, deleteBook, deleteAll }) => {
                 <strong>{langChoice.authorAdd}: </strong> {data.author}
               </span>
               <span
+                style={{ minHeight: "40px", maxHeight: "40px" }}
                 className="btn btn-danger"
                 onClick={() => deleteBook(data.id)}
               >
