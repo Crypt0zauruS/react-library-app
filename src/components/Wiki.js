@@ -70,7 +70,7 @@ function Wiki() {
 
   return (
     <div className="App">
-      <div className="container">
+      <div className="container wiki-container">
         <img className="logo" src={wikimage} alt="wikipedia logo" />
         <div>
           <h1
@@ -80,46 +80,60 @@ function Wiki() {
             <i className="fa-brands fa-wikipedia-w"></i>
           </h1>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="input-group mb-3 mx-auto" style={{ width: "60%" }}>
-            <input
-              style={{ fontSize: "1em" }}
-              className="form-control"
-              type="text"
-              placeholder={langChoice.placeholderWiki}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              value={searchTerm}
-              autoFocus
-              required
-            />
 
-            <button
-              style={{ minWidth: "60px", fontSize: "1em" }}
-              className="btn btn-outline-secondary"
-              type="submit"
-            >
-              {langChoice.searchWiki}
-            </button>
+        <form onSubmit={handleSubmit}>
+          <div
+            className="input-group mb-3 mx-auto row"
+            style={{ width: "60%" }}
+          >
+            <div className="col-sm-12 col-md-6">
+              <input
+                style={{
+                  fontSize: "1em",
+                  minWidth: "200px",
+                  marginBottom: "5px",
+                }}
+                className="form-control"
+                type="text"
+                placeholder={langChoice.placeholderWiki}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm}
+                autoFocus
+                required
+              />
+            </div>
+            <div className="col-sm-12 col-md-6">
+              <button
+                style={{ width: "100%", fontSize: "1em" }}
+                className="btn btn-outline-secondary"
+                type="submit"
+              >
+                {langChoice.searchWiki}
+              </button>
+            </div>
           </div>
         </form>
+        <div className="row">
+          <div className="col">
+            <button
+              style={{ maxWidth: "150px", fontSize: "1em" }}
+              className="btn btn-outline-secondary"
+              onClick={handleRandom}
+              type="button"
+            >
+              {langChoice.randomWiki}
+            </button>
 
-        <button
-          style={{ minWidth: "150px", fontSize: "1em" }}
-          className="btn btn-outline-secondary"
-          onClick={handleRandom}
-          type="button"
-        >
-          {langChoice.randomWiki}
-        </button>
-        <button
-          style={{ minWidth: "150px", fontSize: "1em" }}
-          className="btn btn-outline-secondary ms-5"
-          onClick={() => setResults([])}
-          type="button"
-        >
-          {langChoice.clear}
-        </button>
-
+            <button
+              style={{ minWidth: "90px", fontSize: "1em" }}
+              className="btn btn-outline-secondary ms-5"
+              onClick={() => setResults([])}
+              type="button"
+            >
+              {langChoice.clear}
+            </button>
+          </div>
+        </div>
         <div id="articles">
           {loading && (
             <div>

@@ -184,14 +184,14 @@ const SearchBooks = () => {
       <ToastContainer />
 
       <div className="m-3 bg-light pb-5" style={{ position: "relative" }}>
-        <div className="container text-center">
+        <div className="container text-center add-form">
           <h1 className="display-4" style={{ color: " #463e3d " }}>
             <i className="fa-solid fa-magnifying-glass"></i>
           </h1>
 
           <form className="justify-content-center" onSubmit={handleSubmit}>
             <div className="row">
-              <div className="col">
+              <div className="col-sm-12 col-md-4">
                 <input
                   autoFocus
                   value={title}
@@ -203,12 +203,12 @@ const SearchBooks = () => {
                 />
               </div>
 
-              <div className="col">
+              <div className="col-sm-12 col-md-4 search-button">
                 <button type="submit" className="btn btn-outline-secondary">
                   {langChoice.search}
                 </button>
               </div>
-              <div className="col">
+              <div className="col-sm-12 col-md-4 search-button">
                 <button
                   type="button"
                   className="btn btn-outline-secondary"

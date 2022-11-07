@@ -5,7 +5,6 @@ import Modal from "./Modal";
 
 const NavBar = () => {
   const { langState, converter, english, french } = useContext(LangContext);
-
   const [lang, setLang] = langState;
   const langEn = english;
   const langFr = french;
@@ -54,10 +53,8 @@ const NavBar = () => {
     <header>
       {modal && <Modal onChange={showModal} />}
       {/* Bar */}
-      <div
-        className="p-3 border-bottom bg-secondary text-white navbar"
-        style={{ zIndex: "2" }}
-      >
+
+      <div className="p-3 border-bottom bg-secondary text-white navbar">
         <h4 className="mr-md-auto">
           <button
             type="button"
@@ -76,7 +73,7 @@ const NavBar = () => {
         </h4>
 
         {apiData ? (
-          <div className="d-flex flex-row">
+          <div className="d-flex flex-row weather">
             <p className="h5 mx-3 mt-3">
               <i className="fas fa-map-marker-alt"></i>{" "}
               <strong>{apiData.name}</strong>
@@ -93,7 +90,7 @@ const NavBar = () => {
             </p>
           </div>
         ) : (
-          <div className="text-center">
+          <div className="text-center weather">
             <div className="spinner-border" role="status">
               <span className="visually-hidden">Loading...</span>
             </div>

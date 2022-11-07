@@ -6,13 +6,16 @@ import Footer from "./components/Footer";
 import AddBooks from "./containers/AddBooks";
 import SearchBooks from "./containers/SearchBooks";
 import Wiki from "./components/Wiki";
+import Sticky from "react-stickynode";
 
 function App() {
   return (
     <LangProvider>
       <div className="App">
         <Router>
-          <NavBar />
+          <Sticky enabled={true} innerZ={3}>
+            <NavBar />
+          </Sticky>
 
           <Routes>
             <Route path="/" element={<AddBooks />} />

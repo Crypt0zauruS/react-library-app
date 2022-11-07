@@ -135,7 +135,7 @@ const AddBooks = ({ libraryData, addBook, deleteBook, deleteAll }) => {
   return (
     <main role="main" style={{ marginTop: "-16px" }}>
       <div className="m-3 bg-light pb-5" style={{ position: "relative" }}>
-        <div className="container text-center">
+        <div className="container text-center add-form">
           <h1 className="display-5" style={{ color: " #463e3d " }}>
             <i className="fa-solid fa-book"></i>
           </h1>
@@ -143,11 +143,14 @@ const AddBooks = ({ libraryData, addBook, deleteBook, deleteAll }) => {
           <form className="justify-content-center" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col">
-                <p className="fs-5 mt-1" style={{ fontFamily: "serif" }}>
+                <p
+                  className="fs-5 mt-1 add-library"
+                  style={{ fontFamily: "serif" }}
+                >
                   {langChoice.addAdd}
                 </p>
               </div>
-              <div className="col">
+              <div className="col-sm-12 col-md-4 add-input">
                 <input
                   value={newData.title}
                   type="text"
@@ -160,11 +163,11 @@ const AddBooks = ({ libraryData, addBook, deleteBook, deleteAll }) => {
                 />
               </div>
 
-              <div className="col">
+              <div className="col-sm-12 col-md-4 add-input">
                 <input
                   value={newData.author}
                   type="text"
-                  className="form-control"
+                  className="form-control add-input"
                   placeholder={langChoice.authorAdd}
                   required
                   onChange={(e) =>

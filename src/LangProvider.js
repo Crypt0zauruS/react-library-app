@@ -2,7 +2,9 @@ import React, { useState } from "react";
 export const LangContext = React.createContext();
 
 export const LangProvider = (props) => {
-  const [lang, setLang] = useState(false);
+  const [lang, setLang] = useState(
+    navigator.languages[0].includes("fr") ? true : false
+  );
   const [frenchWeather, setFrenchWeather] = useState("");
   const [englishWeather, setEnglishWeather] = useState("");
 
@@ -65,7 +67,7 @@ export const LangProvider = (props) => {
     searchWiki: "Search",
     placeholderWiki: "Enter your search term",
     randomWiki: "Random Article",
-    clear: "Clear results",
+    clear: "Clear",
     resultsWiki: "Search results",
     noResultsWiki: "No results found",
     moreWiki: "More about",
@@ -76,7 +78,7 @@ export const LangProvider = (props) => {
     weather: englishWeather,
     buttonAdd: "Add a book",
     authorAdd: "Author",
-    addAdd: "Add to library:",
+    addAdd: "Add to library :",
     deleteAdd: "Delete all books",
     askAdd: "Are you sure ?",
     quoteAdd:
@@ -114,7 +116,7 @@ export const LangProvider = (props) => {
     weather: frenchWeather,
     buttonAdd: "Ajouter un livre",
     authorAdd: "Auteur",
-    addAdd: "Ajouter à la bibliothèque:",
+    addAdd: "Ajouter à la biblio :",
     deleteAdd: "Supprimer tous les livres",
     askAdd: "Êtes-vous sûr ?",
     quoteAdd:
