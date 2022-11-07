@@ -104,7 +104,7 @@ function Wiki() {
             </div>
             <div className="col-sm-12 col-md-6">
               <button
-                style={{ width: "100%", fontSize: "1em" }}
+                style={{ width: "100%", fontSize: "1em", zIndex: "0" }}
                 className="btn btn-outline-secondary"
                 type="submit"
               >
