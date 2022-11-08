@@ -105,6 +105,7 @@ export const LangProvider = (props) => {
     restoreAlert:
       "Are you sure ? This will return all your data to the state saved in the backup.",
     backup: `Backup " myLibrary.txt " saved to your Downloads folder`,
+    fileFail: "Your file is not a valid backup",
   };
 
   const langFr = {
@@ -151,6 +152,7 @@ export const LangProvider = (props) => {
     restoreAlert:
       "Êtes-vous sûr ? Cela restaurera toutes vos données dans l'état enregistré dans la sauvegarde.",
     backup: `Sauvegarde " myLibrary.txt " enregistrée dans votre dossier de téléchargements`,
+    fileFail: "Votre fichier n'est pas une sauvegarde valide",
   };
 
   return (

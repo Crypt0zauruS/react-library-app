@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext, useRef, useMemo } from "react";
 import { LangContext } from "../LangProvider";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { ToastContainer, toast } from "react-toastify";
@@ -60,25 +60,49 @@ const Modal = ({ onChange }) => {
     });
   }
 
-  function toJsonObject(file) {
+  const toJsonObject = async (file) => {
     const reader = new FileReader();
     reader.readAsText(file);
-
     reader.onload = function (event) {
-      const result = JSON.parse(event.target.result);
-      if (result.booksData && result.userData) {
-        for (let key in result) {
-          localStorage.setItem(key, result[key]);
-          window.location.reload();
+      try {
+        const result = JSON.parse(event.target.result);
+        if (result.booksData && result.userData) {
+          for (let key in result) {
+            localStorage.setItem(key, result[key]);
+            window.location.reload();
+          }
+        } else {
+          toast.error(`${langChoice.fileFail}`, {
+            className: "toast-position",
+            theme: "dark",
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+          });
         }
-      } else {
-        alert("Wrong file");
+      } catch (error) {
+        console.log(error);
+        toast.error(`${langChoice.fileFail}`, {
+          className: "toast-position",
+          theme: "dark",
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
       }
     };
     setUpload(true);
-  }
+  };
 
-  useEffect(() => {
+  useMemo(() => {
     if (upload) ref.current.value = null;
     setUpload(false);
   }, [upload]);
@@ -146,7 +170,9 @@ const Modal = ({ onChange }) => {
                             ? langChoice.pseudo
                             : langChoice.pseudoChange
                         }
-                        autoFocus
+                        autoFocus={
+                          localStorage.getItem("userData") ? false : true
+                        }
                         required
                       />
                     </div>

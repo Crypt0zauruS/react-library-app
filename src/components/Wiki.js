@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import { LangContext } from "../LangProvider";
 import axios from "axios";
 import "../App.css";
@@ -19,8 +19,9 @@ function Wiki() {
 
   const baseUrl = `https://${langChoice.languageWiki}.wikipedia.org/w/api.php?action=query&format=json&exintro&explaintext`;
 
-  useEffect(() => {
+  useMemo(() => {
     setResults([]);
+    // eslint-disable-next-line
   }, [lang]);
 
   const handleSubmit = (e) => {

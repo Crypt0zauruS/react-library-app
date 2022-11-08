@@ -21,6 +21,7 @@ function App() {
             <Route path="/" element={<AddBooks />} />
             <Route path="/search" element={<SearchBooks />} />
             <Route path="/wiki" element={<Wiki />} />
+            <Route path="*" element={<AddBooks />} />
           </Routes>
         </Router>
         <Footer />
