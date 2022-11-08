@@ -98,6 +98,13 @@ export const LangProvider = (props) => {
       "Anger and grief hurt us far more than the very things we complain about, and which cause them to arise.",
     pseudo: "Choose a name",
     pseudoChange: "Change your name ?",
+    settings: "Settings",
+    closeSettings: "Close",
+    restore: "Restore my library",
+    saveLibrary: "Save my library",
+    restoreAlert:
+      "Are you sure ? This will return all your data to the state saved in the backup.",
+    backup: `Backup " myLibrary.txt " saved to your Downloads folder`,
   };
 
   const langFr = {
@@ -137,6 +144,13 @@ export const LangProvider = (props) => {
       "La colère et le chagrin nous blessent beaucoup plus que les choses mêmes dont nous nous plaignons et qui les font surgir.",
     pseudo: "Choisissez un pseudo",
     pseudoChange: "Changer votre pseudo ?",
+    settings: "Paramètres",
+    closeSettings: "Fermer",
+    restore: "Restaurer ma biblio",
+    saveLibrary: "Sauvegarder ma biblio",
+    restoreAlert:
+      "Êtes-vous sûr ? Cela restaurera toutes vos données dans l'état enregistré dans la sauvegarde.",
+    backup: `Sauvegarde " myLibrary.txt " enregistrée dans votre dossier de téléchargements`,
   };
 
   return (

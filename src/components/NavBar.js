@@ -9,7 +9,6 @@ const NavBar = () => {
   const langEn = english;
   const langFr = french;
   const convert = converter;
-
   const [apiData, setApiData] = useState(null);
   const [modal, setModal] = useState(false);
 

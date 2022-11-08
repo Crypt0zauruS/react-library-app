@@ -1,5 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { LangContext } from "../LangProvider";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Modal = ({ onChange }) => {
   const [login, setLogin] = useState("");
@@ -7,6 +10,78 @@ const Modal = ({ onChange }) => {
   const [lang, setLang] = langState;
   const langEn = english;
   const langFr = french;
+  const ref = useRef(null);
+  const [file, setFile] = useState(undefined);
+  const [upload, setUpload] = useState(false);
+
+  const restoreAlert = (file) => {
+    confirmAlert({
+      title: `${langChoice.restoreAlert}`,
+      message: "",
+      buttons: [
+        {
+          label: `${langChoice.sure}`,
+          onClick: () => toJsonObject(file),
+        },
+        {
+          label: `${langChoice.cancel}`,
+        },
+      ],
+    });
+  };
+
+  function getLocalstorageToFile(fileName) {
+    let datas = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const keys = localStorage.key(i);
+      const values = localStorage.getItem(keys);
+      datas[keys] = values;
+    }
+    const textToSave = JSON.stringify(datas);
+    const textToSaveAsBlob = new Blob([textToSave], {
+      type: "text/plain",
+    });
+    const textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    const downloadLink = document.createElement("a");
+    downloadLink.download = fileName;
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.click();
+    toast.success(`${langChoice.backup}`, {
+      className: "toast-position",
+      theme: "dark",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+    });
+  }
+
+  function toJsonObject(file) {
+    const reader = new FileReader();
+    reader.readAsText(file);
+
+    reader.onload = function (event) {
+      const result = JSON.parse(event.target.result);
+      if (result.booksData && result.userData) {
+        for (let key in result) {
+          localStorage.setItem(key, result[key]);
+          window.location.reload();
+        }
+      } else {
+        alert("Wrong file");
+      }
+    };
+    setUpload(true);
+  }
+
+  useEffect(() => {
+    if (upload) ref.current.value = null;
+    setUpload(false);
+  }, [upload]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +91,7 @@ const Modal = ({ onChange }) => {
   const langChoice = lang ? langFr : langEn;
   return (
     <div>
-      {" "}
+      <ToastContainer />{" "}
       <div className="container dialog-box">
         <div
           id="loginbox"
@@ -36,7 +111,7 @@ const Modal = ({ onChange }) => {
                 >
                   {!localStorage.getItem("userData")
                     ? langChoice.pseudo
-                    : langChoice.pseudoChange}
+                    : langChoice.settings}
                 </h3>
                 <button
                   className="btn btn-light lang"
@@ -59,35 +134,89 @@ const Modal = ({ onChange }) => {
                   style={{ marginBottom: "25px" }}
                   className="input-group d-flex justify-content-center"
                 >
-                  <input
-                    style={{ maxWidth: "300px" }}
-                    onChange={(e) => setLogin(e.target.value)}
-                    type="text"
-                    className="form-control"
-                    placeholder="Pseudo"
-                    autoFocus
-                    required
-                  />
-                </div>
-
-                <div style={{ marginTop: "10px" }} className="form-group">
-                  <div className="col-sm-12 controls">
-                    <button type="submit" className="btn btn-secondary mx-4">
-                      <i className="fa-solid fa-check"></i>
-                    </button>{" "}
-                    {localStorage.getItem("userData") && (
+                  <div className="row">
+                    <div className="col">
+                      <input
+                        style={{ maxWidth: "300px", minWidth: "250px" }}
+                        onChange={(e) => setLogin(e.target.value)}
+                        type="text"
+                        className="form-control"
+                        placeholder={
+                          !localStorage.getItem("userData")
+                            ? langChoice.pseudo
+                            : langChoice.pseudoChange
+                        }
+                        autoFocus
+                        required
+                      />
+                    </div>
+                    <div className="col">
                       <button
-                        type="button"
-                        className="btn btn-secondary mx-4"
-                        onClick={() => onChange(false)}
+                        style={{ border: "1px solid darkturquoise" }}
+                        type="submit"
+                        className="btn btn-secondary"
                       >
-                        <i className="fa-solid fa-ban"></i>
+                        <i className="fa-solid fa-check"></i>
                       </button>
-                    )}
+                    </div>
                   </div>
                 </div>
               </form>
+
+              {localStorage.getItem("userData") && (
+                <div style={{ marginTop: "10px" }} className="form-group">
+                  <div className="col-sm-12 controls">
+                    <hr />
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => getLocalstorageToFile("myLibrary.txt")}
+                    >
+                      {langChoice.saveLibrary}
+                    </button>
+                    <hr />
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        file && restoreAlert(file);
+                      }}
+                    >
+                      <button
+                        style={{ marginBottom: "10px" }}
+                        className="btn btn-danger"
+                        type="submit"
+                      >
+                        {langChoice.restore}
+                      </button>
+                      <input
+                        className="form-control"
+                        required
+                        type="file"
+                        accept="text/plain"
+                        ref={ref}
+                        style={{
+                          maxWidth: "400px",
+                          margin: "0 auto",
+                        }}
+                        onChange={(e) => {
+                          setFile(e.target.files[0]);
+                        }}
+                      />
+                    </form>
+                    <hr />
+                  </div>
+                </div>
+              )}
             </div>
+            {localStorage.getItem("userData") && (
+              <button
+                type="button"
+                className="btn btn-secondary mx-3"
+                onClick={() => onChange(false)}
+                style={{ border: "1px solid darkturquoise" }}
+              >
+                {langChoice.closeSettings}
+              </button>
+            )}
           </div>
         </div>
       </div>
