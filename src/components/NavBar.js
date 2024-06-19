@@ -15,7 +15,7 @@ const NavBar = () => {
   const handleCoords = function () {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
-      const url = `https://fcc-weather-api.glitch.me/api/current?lon=${longitude}&lat=${latitude}`;
+      const url = `https://weather-proxy.freecodecamp.rocks/api/current?lon=${longitude}&lat=${latitude}`;
       fetch(url)
         .then((res) => res.json(url))
         .then((data) => {
