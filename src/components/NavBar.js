@@ -11,13 +11,14 @@ const NavBar = () => {
   const convert = converter;
   const [apiData, setApiData] = useState(null);
   const [modal, setModal] = useState(false);
+  const [isCelsius, setIsCelsius] = useState(true); // Nouvel état pour suivre l'unité de température
 
   const handleCoords = function () {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       const url = `https://weather-proxy.freecodecamp.rocks/api/current?lon=${longitude}&lat=${latitude}`;
       fetch(url)
-        .then((res) => res.json(url))
+        .then((res) => res.json())
         .then((data) => {
           setApiData(data);
           convert(data.weather[0].main);
@@ -47,6 +48,14 @@ const NavBar = () => {
   }, []);
 
   const langChoice = lang ? langFr : langEn;
+
+  const toggleTemperatureUnit = () => {
+    setIsCelsius(!isCelsius);
+  };
+
+  const convertTemperature = (temp) => {
+    return isCelsius ? temp : (temp * 9) / 5 + 32;
+  };
 
   return (
     <header>
@@ -82,8 +91,13 @@ const NavBar = () => {
               alt="weather status icon"
               className="weather-icon"
             />
-            <p className="mx-3">
-              {apiData.main.temp + " °C"}
+            <p
+              className="mx-3"
+              onClick={toggleTemperatureUnit}
+              style={{ cursor: "pointer" }}
+            >
+              {convertTemperature(apiData.main.temp).toFixed(2) +
+                (isCelsius ? " °C" : " °F")}
               <br />
               <strong>{langChoice.weather}</strong>
             </p>
